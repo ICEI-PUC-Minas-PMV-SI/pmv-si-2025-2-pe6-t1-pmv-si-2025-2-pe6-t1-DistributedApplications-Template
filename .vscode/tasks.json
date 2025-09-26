@@ -1,0 +1,349 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "postgres: remove",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "rm",
+        "-f",
+        "zabbix-postgres-debug"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "postgres: start-compose",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": [
+        "up",
+        "-d",
+        "postgres"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "isBackground": true
+    },
+    {
+      "label": "backend: setup-compose",
+      "dependsOn": [
+        "postgres: start-compose",
+        "npm: install (backend)",
+        "prisma: generate",
+        "db: setup"
+      ],
+      "dependsOrder": "sequence",
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "npm: install (backend)",
+      "type": "shell",
+      "command": "npm",
+      "args": ["install"],
+      "options": {
+        "cwd": "${workspaceFolder}/infrastructure/backend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "prisma: generate",
+      "type": "shell",
+      "command": "npx",
+      "args": ["prisma", "generate"],
+      "options": {
+        "cwd": "${workspaceFolder}/infrastructure/backend",
+        "env": {
+          "DATABASE_URL": "postgresql://postgres:password123@localhost:9080/zabbix_store?schema=public"
+        }
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "db: setup",
+      "type": "shell",
+      "command": "npx",
+      "args": ["prisma", "db", "push"],
+      "options": {
+        "cwd": "${workspaceFolder}/infrastructure/backend",
+        "env": {
+          "DATABASE_URL": "postgresql://postgres:password123@localhost:9080/zabbix_store?schema=public"
+        }
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "debug: setup-docker-services",
+      "dependsOn": [
+        "docker-compose: clean",
+        "docker-compose: up-frontend-with-database",
+        "db: setup",
+        "prisma: seed"
+      ],
+      "dependsOrder": "sequence",
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "debug: cleanup-docker-services",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": [
+        "down",
+        "postgres",
+        "frontend",
+        "prisma-studio"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "docker-compose: build",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": ["build"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": "$docker-compose"
+    },
+    {
+      "label": "docker-compose: up",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": ["up", "-d"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "isBackground": true
+    },
+    {
+      "label": "prisma: seed",
+      "type": "shell",
+      "command": "npx",
+      "args": ["prisma", "db", "seed"],
+      "options": {
+        "cwd": "${workspaceFolder}/infrastructure/backend",
+        "env": {
+          "DATABASE_URL": "postgresql://postgres:password123@localhost:9080/zabbix_store?schema=public"
+        }
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "docker-compose: up-database-only",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": [
+        "up",
+        "-d",
+        "postgres",
+        "prisma-studio"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "isBackground": true
+    },
+    {
+      "label": "docker-compose: up-backend-with-database",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": [
+        "up",
+        "-d",
+        "postgres",
+        "backend",
+        "prisma-studio"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "isBackground": true
+    },
+    {
+      "label": "docker-compose: up-frontend-with-database",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": [
+        "up",
+        "-d",
+        "postgres",
+        "frontend",
+        "prisma-studio"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "isBackground": true
+    },
+    {
+      "label": "docker-compose: down",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": ["down"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "docker-compose: clean",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": ["down", "-v", "--rmi", "all"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "debug: setup-backend-services",
+      "dependsOn": [
+        "docker-compose: clean",
+        "docker-compose: up-backend-services",
+        "db: setup",
+        "prisma: seed"
+      ],
+      "dependsOrder": "sequence",
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "docker-compose: up-backend-services",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": [
+        "up",
+        "-d",
+        "postgres",
+        "backend",
+        "prisma-studio"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "isBackground": true
+    },
+    {
+      "label": "debug: cleanup-backend-services",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": [
+        "down",
+        "postgres",
+        "backend",
+        "prisma-studio"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "frontend: install",
+      "type": "shell",
+      "command": "npm",
+      "args": ["install"],
+      "options": {
+        "cwd": "${workspaceFolder}/infrastructure/frontend"
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Backend (Local + Docker)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/infrastructure/backend/src/main.ts",
+      "cwd": "${workspaceFolder}/infrastructure/backend",
+      "preLaunchTask": "debug: setup-docker-services",
+      "postDebugTask": "debug: cleanup-docker-services",
+      "env": {
+        "NODE_ENV": "development",
+        "PORT": "3000",
+        "DATABASE_URL": "postgresql://postgres:password123@localhost:9080/zabbix_store?schema=public",
+        "JWT_SECRET": "your-super-secret-jwt-key-change-this-in-production",
+        "FRONTEND_URL": "http://localhost:5173"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "sourceMaps": true,
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/infrastructure/backend/node_modules/**"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/infrastructure/backend/dist/**/*.js"
+      ],
+      "restart": true
+    },
+    {
+      "name": "Debug Frontend (Backend & DB in Docker)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/infrastructure/frontend",
+      "sourceMapPathOverrides": {
+        "/src/*": "${webRoot}/src/*"
+      },
+      "preLaunchTask": "debug: setup-backend-services",
+      "postDebugTask": "debug: cleanup-backend-services",
+      "runtimeArgs": [
+        "--new-window"
+      ],
+      "presentation": {
+        "group": "frontend-debug",
+        "order": 1
+      }
+    },
+    {
+      "name": "Run Docker (Build & Up)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "docker-compose",
+      "runtimeArgs": [
+        "up",
+        "--build",
+        "-d"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "presentation": {
+        "echo": true,
+        "reveal": true,
+        "focus": false,
+        "panel": "shared"
+      },
+      "postDebugTask": "debug: cleanup-docker-services"
+    }
+  ]
+}
