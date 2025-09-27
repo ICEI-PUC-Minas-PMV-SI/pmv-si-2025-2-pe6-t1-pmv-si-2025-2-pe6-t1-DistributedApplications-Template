@@ -1,0 +1,62 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach Backend (Docker)",
+      "type": "node",
+      "request": "attach",
+      "address": "localhost",
+      "port": 9229,
+      "localRoot": "${workspaceFolder}/infrastructure/backend",
+      "remoteRoot": "/app",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/infrastructure/backend/node_modules/**"
+      ],
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceFolder}/infrastructure/backend/dist/**/*.js"
+      ]
+    },
+    {
+      "name": "Debug Frontend (Backend & DB in Docker)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/infrastructure/frontend",
+      "sourceMapPathOverrides": {
+        "/src/*": "${webRoot}/src/*"
+      },
+      "preLaunchTask": "debug: setup-backend-services",
+      "postDebugTask": "debug: cleanup-backend-services",
+      "runtimeArgs": [
+        "--new-window"
+      ],
+      "presentation": {
+        "group": "frontend-debug",
+        "order": 1
+      }
+    },
+    {
+      "name": "Run Docker (Build & Up)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "docker-compose",
+      "runtimeArgs": [
+        "up",
+        "--build",
+        "-d"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "presentation": {
+        "echo": true,
+        "reveal": true,
+        "focus": false,
+        "panel": "shared"
+      },
+      "postDebugTask": "debug: cleanup-docker-services"
+    }
+  ]
+}
