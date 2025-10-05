@@ -8,49 +8,496 @@ Aqui estão algumas etapas importantes que devem ser consideradas no planejament
 
 ## Objetivos da API
 
-O primeiro passo é definir os objetivos da sua API. O que você espera alcançar com ela? Você quer que ela seja usada por clientes externos ou apenas por aplicações internas? Quais são os recursos que a API deve fornecer?
-
-[Inclua os objetivos da sua api.]
+A API tem o objetivo de permitir aos clientes criar e gerenciar pedidos, e permitir aos funcionários da pizzaria visualizar os pedidos que precisam preparar. Além disso, a API também conta com usuários adminstradores, que podem criar e apagar usuário e pedidos.
 
 
 ## Modelagem da Aplicação
-[Descreva a modelagem da aplicação, incluindo a estrutura de dados, diagramas de classes ou entidades, e outras representações visuais relevantes.]
+
+A etapa de modelagem começou com a modelagem do banco de ados:
+<img width="1026" height="941" alt="image" src="https://github.com/user-attachments/assets/2b257220-2d25-4ba0-878d-e77b39a71aba" />
 
 
 ## Tecnologias Utilizadas
 
-Existem muitas tecnologias diferentes que podem ser usadas para desenvolver APIs Web. A tecnologia certa para o seu projeto dependerá dos seus objetivos, dos seus clientes e dos recursos que a API deve fornecer.
+- ASP .NET CORE
+- sqlserver
+- git
 
-[Lista das tecnologias principais que serão utilizadas no projeto.]
 
 ## API Endpoints
 
-[Liste os principais endpoints da API, incluindo as operações disponíveis, os parâmetros esperados e as respostas retornadas.]
+### 👤 Users
 
-### Endpoint 1
-- Método: GET
-- URL: /endpoint1
-- Parâmetros:
-  - param1: [descrição]
-- Resposta:
-  - Sucesso (200 OK)
-    ```
-    {
-      "message": "Success",
-      "data": {
-        ...
-      }
-    }
-    ```
-  - Erro (4XX, 5XX)
-    ```
-    {
-      "message": "Error",
-      "error": {
-        ...
-      }
-    }
-    ```
+### POST `/user` – Criar usuário
+**Acesso:** User
+
+**Request (exemplo):**
+```json
+{
+  "name": "João Silva",
+  "email": "joao@email.com",
+  "password": "SenhaForte!234"
+}
+```
+
+**Responses:**
+
+**✅ 201 Created**
+```json
+{
+  "id": "123",
+  "name": "João Silva",
+  "email": "joao@email.com"
+}
+```
+
+**❌ 400 Bad Request**
+```json
+{ "error": "Invalid email format", "statusCode": 400 }
+```
+
+**❌ 409 Conflict**
+```json
+{ "error": "User already exists", "statusCode": 409 }
+```
+
+**❌ 500 Internal Server Error**
+```json
+{ "error": "Unexpected error", "statusCode": 500 }
+```
+
+---
+
+### GET `/user` – Buscar dados do próprio usuário
+**Acesso:** User
+
+**Responses:**
+
+**✅ 200 OK**
+```json
+{
+  "id": "123",
+  "name": "João Silva",
+  "email": "joao@email.com"
+}
+```
+
+**❌ 401 Unauthorized**
+```json
+{ "error": "Invalid token", "statusCode": 401 }
+```
+
+**❌ 404 Not Found**
+```json
+{ "error": "User not found", "statusCode": 404 }
+```
+
+---
+
+### PUT `/user` – Atualizar dados do próprio usuário
+**Acesso:** User
+
+**Request (exemplo):**
+```json
+{
+  "name": "João Atualizado",
+  "email": "joao.novo@email.com"
+}
+```
+
+**Responses:**
+
+**✅ 200 OK**
+```json
+{
+  "id": "123",
+  "name": "João Atualizado",
+  "email": "joao.novo@email.com"
+}
+```
+
+**❌ 400 Bad Request**
+```json
+{ "error": "Invalid request body", "statusCode": 400 }
+```
+
+**❌ 401 Unauthorized**
+```json
+{ "error": "Invalid token", "statusCode": 401 }
+```
+
+**❌ 500 Internal Server Error**
+```json
+{ "error": "Unexpected error", "statusCode": 500 }
+```
+
+---
+
+### DELETE `/user` – Remover a própria conta
+**Acesso:** User
+
+**Responses:**
+
+**✅ 204 No Content**
+
+**❌ 401 Unauthorized**
+```json
+{ "error": "Invalid token", "statusCode": 401 }
+```
+
+**❌ 404 Not Found**
+```json
+{ "error": "User not found", "statusCode": 404 }
+```
+
+---
+
+### POST `/user/login` – Autenticação
+**Acesso:** Shared
+
+**Request (exemplo):**
+```json
+{
+  "email": "joao@email.com",
+  "password": "SenhaForte!234"
+}
+```
+
+**Responses:**
+
+**✅ 200 OK**
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "expiresIn": 3600
+}
+```
+
+**❌ 400 Bad Request**
+```json
+{ "error": "Missing email or password", "statusCode": 400 }
+```
+
+**❌ 401 Unauthorized**
+```json
+{ "error": "Invalid credentials", "statusCode": 401 }
+```
+
+---
+
+### 📦 Items
+
+### POST `/item` – Criar item
+**Acesso:** Admin
+
+**Request (exemplo):**
+```json
+{
+  "name": "Pizza Calabresa",
+  "description": "Calabresa, cebola, azeitona",
+  "price": 45.00,
+  "stock": 10
+}
+```
+
+**Responses:**
+
+**✅ 201 Created**
+```json
+{
+  "id": "1",
+  "name": "Pizza Calabresa",
+  "price": 45.00,
+  "stock": 10
+}
+```
+
+**❌ 400 Bad Request**
+```json
+{ "error": "Invalid item data", "statusCode": 400 }
+```
+
+**❌ 500 Internal Server Error**
+```json
+{ "error": "Unexpected error", "statusCode": 500 }
+```
+
+---
+
+### PUT `/item/:id` – Atualizar item
+**Acesso:** Admin
+
+**Request (exemplo):**
+```json
+{
+  "name": "Pizza Calabresa Grande",
+  "price": 52.00,
+  "stock": 8
+}
+```
+
+**Responses:**
+
+**✅ 200 OK**
+```json
+{
+  "id": "1",
+  "name": "Pizza Calabresa Grande",
+  "price": 52.00,
+  "stock": 8
+}
+```
+
+**❌ 400 Bad Request**
+```json
+{ "error": "Invalid item data", "statusCode": 400 }
+```
+
+**❌ 404 Not Found**
+```json
+{ "error": "Item not found", "statusCode": 404 }
+```
+
+---
+
+### GET `/item` – Listar itens
+**Acesso:** Admin
+
+**Responses:**
+
+**✅ 200 OK**
+```json
+[
+  { "id": "1", "name": "Pizza Calabresa", "price": 45.00, "stock": 10 },
+  { "id": "2", "name": "Pizza Marguerita", "price": 42.00, "stock": 5 }
+]
+```
+
+**❌ 401 Unauthorized**
+```json
+{ "error": "Unauthorized", "statusCode": 401 }
+```
+
+---
+
+### DELETE `/item/:id` – Remover item
+**Acesso:** Admin
+
+**Responses:**
+
+**✅ 204 No Content**
+
+**❌ 404 Not Found**
+```json
+{ "error": "Item not found", "statusCode": 404 }
+```
+
+---
+
+### 🛒 Cart
+
+### POST `/cart-item` – Adicionar item ao carrinho
+**Acesso:** User
+
+**Request (exemplo):**
+```json
+{
+  "itemId": "2",
+  "quantity": 1
+}
+```
+
+**Responses:**
+
+**✅ 201 Created**
+```json
+{
+  "cartItemId": "10",
+  "itemId": "2",
+  "name": "Pizza Marguerita",
+  "quantity": 1,
+  "price": 42.00,
+  "subtotal": 42.00
+}
+```
+
+**❌ 400 Bad Request**
+```json
+{ "error": "Invalid cart item data", "statusCode": 400 }
+```
+
+**❌ 404 Not Found**
+```json
+{ "error": "Item not found", "statusCode": 404 }
+```
+
+---
+
+### PUT `/cart-item/:id` – Atualizar item do carrinho
+**Acesso:** User
+
+**Request (exemplo):**
+```json
+{
+  "quantity": 2
+}
+```
+
+**Responses:**
+
+**✅ 200 OK**
+```json
+{
+  "cartItemId": "10",
+  "itemId": "2",
+  "quantity": 2,
+  "subtotal": 84.00
+}
+```
+
+**❌ 404 Not Found**
+```json
+{ "error": "Cart item not found", "statusCode": 404 }
+```
+
+---
+
+### GET `/cart-item` – Listar itens do carrinho
+**Acesso:** User
+
+**Responses:**
+
+**✅ 200 OK**
+```json
+[
+  { "cartItemId": "10", "itemId": "2", "name": "Pizza Marguerita", "quantity": 2, "price": 42.00 }
+]
+```
+
+---
+
+### DELETE `/cart-item/:id` – Remover item do carrinho
+**Acesso:** User
+
+**Responses:**
+
+**✅ 204 No Content**
+
+**❌ 404 Not Found**
+```json
+{ "error": "Cart item not found", "statusCode": 404 }
+```
+
+---
+
+### 🧾 Orders
+
+### POST `/order` – Criar pedido
+**Acesso:** User
+
+**Request (exemplo):**
+```json
+{
+  "items": [
+    { "itemId": "1", "quantity": 1 },
+    { "itemId": "2", "quantity": 1 }
+  ],
+  "paymentMethod": "card",
+  "addressId": "addr_123"
+}
+```
+
+**Responses:**
+
+**✅ 201 Created**
+```json
+{
+  "orderId": "999",
+  "status": "pending",
+  "items": [
+    { "itemId": "1", "quantity": 1 },
+    { "itemId": "2", "quantity": 1 }
+  ]
+}
+```
+
+**❌ 400 Bad Request**
+```json
+{ "error": "Invalid order data", "statusCode": 400 }
+```
+
+---
+
+### GET `/order/:id` – Buscar pedido específico
+**Acesso:** User
+
+**Responses:**
+
+**✅ 200 OK**
+```json
+{
+  "orderId": "999",
+  "status": "pending",
+  "items": [
+    { "itemId": "1", "quantity": 1 },
+    { "itemId": "2", "quantity": 1 }
+  ]
+}
+```
+
+**❌ 404 Not Found**
+```json
+{ "error": "Order not found", "statusCode": 404 }
+```
+
+---
+
+### DELETE `/order/:id` – Cancelar pedido
+**Acesso:** User
+
+**Responses:**
+
+**✅ 204 No Content**
+
+**❌ 404 Not Found**
+```json
+{ "error": "Order not found", "statusCode": 404 }
+```
+
+---
+
+### GET `/orders` – Listar todos pedidos
+**Acesso:** Admin/Employee
+
+**Responses:**
+
+**✅ 200 OK**
+```json
+[
+  { "orderId": "999", "status": "pending", "userId": "123" },
+  { "orderId": "1000", "status": "completed", "userId": "124" }
+]
+```
+
+---
+
+### PATCH `/cancel/:id` – Cancelar pedido (qualquer usuário)
+**Acesso:** Admin/Employee/User
+
+**Responses:**
+
+**✅ 200 OK**
+```json
+{
+  "orderId": "999",
+  "status": "canceled"
+}
+```
+
+**❌ 404 Not Found**
+```json
+{ "error": "Order not found", "statusCode": 404 }
+```
 
 ## Considerações de Segurança
 
@@ -88,14 +535,17 @@ Inclua todas as referências (livros, artigos, sites, etc) utilizados no desenvo
 
 ### Semana 1
 
-Atualizado em: 21/04/2024
+Atualizado em: 29/09/2025
 
-| Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
-| :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| AlunaX        | Introdução | 01/02/2024     | 07/02/2024 | ✔️    | 05/02/2024      |
-| AlunaZ        | Objetivos    | 03/02/2024     | 10/02/2024 | 📝    |                 |
-| AlunoY        | Histórias de usuário  | 01/01/2024     | 07/01/2005 | ⌛     |                 |
-| AlunoK        | Personas 1  |    01/01/2024        | 12/02/2005 | ❌    |       |
+| Responsável | Tarefa/Requisito                   | Iniciado em    | Prazo      | Status | Terminado em |
+| :----       | :----                               | :----:        | :----:     | :----: | :----:       |
+| Samuel      | Desenvolver endpoints de Users     | 22/09/2025    | 05/09/2025 | ✔️     | 05/09/2025   |
+| Pedro       | Criar endpoints de Users/Admin     | 22/09/2025    | 29/09/2025 | 📝     |              |
+| Victor      | Desenvolver endpoints de Items/Admin | 22/09/2025  | 29/09/2025 | ✔️     |  28/09/2025  |
+| Luigi       | Criar endpoints de Cart/User       | 22/09/2025    | 29/09/2025 | 📝     |              |
+| Vitor       | Criar endpoints de Orders          | 22/09/2025    | 29/09/2025 | ✔️     | 29/09/2025   |
+| Bruno       | Setup da API + modelagem do banco + models  | 22/09/2025    | 24/09/2025 |  ✔️    | 24/09/2025   |
+
 
 #### Semana 2
 
@@ -106,7 +556,10 @@ Atualizado em: 21/04/2024
 | AlunaX        | Página inicial   | 01/02/2024     | 07/03/2024 | ✔️    | 05/02/2024      |
 | AlunaZ        | CSS unificado    | 03/02/2024     | 10/03/2024 | 📝    |                 |
 | AlunoY        | Página de login  | 01/02/2024     | 07/03/2024 | ⌛     |                 |
-| AlunoK        | Script de login  |  01/01/2024    | 12/03/2024 | ❌    |       |
+| AlunoK        | Script de login  |  01/01/2024    | 12/03/2024 | ❌    |                |
+| Bruno         | Documentar APIs  |  29/09/20505   | 01/10/2025 | ⌛    |                |
+| Bruno         | Documentar objetivo + modelagem |  29/09/20505   | 01/10/2025 | ⌛    |                |
+| Victor.A       | Documentação de implantação  |  29/09/20505   | 01/10/2025 | ⌛    |                |
 
 Legenda:
 - ✔️: terminado

@@ -1,4 +1,4 @@
-# TÍTULO DO PROJETO
+# FatiaCerta
 
 `CURSO: Sistemas de Informação`
 
@@ -6,20 +6,20 @@
 
 `SEMESTRE: 6º`
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+O projeto visa desenvolver uma sistema distribuído para a Pizzaria Fatia Certa, com o objetivo principal de ampliar a captação e fidelização de clientes. Sendo desenvolvido uma aplicação Web com frontend e backend para acompanhamento e gerenciamento de pedidos e uma aplicação mobile para que os clientes possam explorar o cardápio e fazer pedidos
 
 ## Integrantes
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
-* Nome completo do aluno 5
-* Nome completo do aluno 6
+* Victor Alexandre Ferreira Santos
+* Vitor Alberto Gonçalves Cavaco
+* Luigi von Blücher Mezzogori
+* Samuel Lacerda Borges
+* Bruno de Lacerda Tetzner
+* Pedro Vinicius Ribeiro Teixeira Justino
 
 ## Orientador
 
-* Nome completo do professor 1
+* Kleber Jacques Ferreira de Souza
 
 # Planejamento
 
