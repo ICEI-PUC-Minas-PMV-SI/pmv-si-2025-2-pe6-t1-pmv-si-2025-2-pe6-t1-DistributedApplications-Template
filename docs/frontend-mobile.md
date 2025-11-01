@@ -7,7 +7,7 @@
 
 ### Wireframes
 
-[Inclua os wireframes das páginas principais da interface, mostrando a disposição dos elementos na página.]
+
 
 ### Design Visual
 
@@ -55,27 +55,24 @@ Inclua todas as referências (livros, artigos, sites, etc) utilizados no desenvo
 
 > Apresente a divisão de tarefas entre os membros do grupo e o acompanhamento da execução, conforme o exemplo abaixo.
 
-### Semana 1
+### Etapa 4
 
 Atualizado em: 21/04/2024
 
-| Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
-| :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| AlunaX        | Introdução | 01/02/2024     | 07/02/2024 | ✔️    | 05/02/2024      |
-| AlunaZ        | Objetivos    | 03/02/2024     | 10/02/2024 | 📝    |                 |
-| AlunoY        | Histórias de usuário  | 01/01/2024     | 07/01/2005 | ⌛     |                 |
-| AlunoK        | Personas 1  |    01/01/2024        | 12/02/2005 | ❌    |       |
+| Responsável   | Tarefa/Requisito            | Iniciado em       | Prazo      | Status | Terminado em    |
+| :----         |    :----                    |      :----:       |   :----:   | :----: | :----:          |
+| Todos         | Correção da Etapa           |    01/02/2024     | 07/02/2024 | ✔️     | 05/02/2024      |
+| AlunaZ        | Front-end Móvel             |    03/02/2024     | 10/02/2024 | 📝     |                 |
+| AlunoY        | Projeto da Interface        |    01/01/2024     | 07/01/2005 | ⌛     |                 |
+| AlunoK        | Wireframes                  |    01/01/2024     | 12/02/2005 | ❌     |       |
+| AlunoK        | Design Visual               |    01/01/2024     | 12/02/2005 | ❌     |       |
+| AlunoK        | Fluxo de Dados              |    01/01/2024     | 12/02/2005 | ❌     |       |
+| AlunoK        | Tecnologias Utilizadas      |    01/01/2024     | 12/02/2005 | ❌     |       |
+| AlunoK        | Considerações de Segurança  |    01/01/2024     | 12/02/2005 | ❌     |       |
+| AlunoK        | Testes                      |    01/01/2024     | 12/02/2005 | ❌     |       |
+| AlunoK        |Montar apresentação etapa 4  |    01/01/2024     | 12/02/2005 | ❌     |       |
 
-#### Semana 2
 
-Atualizado em: 21/04/2024
-
-| Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
-| :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| AlunaX        | Página inicial   | 01/02/2024     | 07/03/2024 | ✔️    | 05/02/2024      |
-| AlunaZ        | CSS unificado    | 03/02/2024     | 10/03/2024 | 📝    |                 |
-| AlunoY        | Página de login  | 01/02/2024     | 07/03/2024 | ⌛     |                 |
-| AlunoK        | Script de login  |  01/01/2024    | 12/03/2024 | ❌    |       |
 
 Legenda:
 - ✔️: terminado
