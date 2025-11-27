@@ -1,0 +1,211 @@
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/services/prisma.service';
+
+@Injectable()
+export class ProdutoService {
+  constructor(private readonly prisma: PrismaService) {}
+
+  async buscar(body: any) {
+    try {
+      const buscaProduto = await this.prisma.produtos.findFirst({
+        where: { CODPROD: +body.CODPROD },
+        include: { CATEGORIAS: true, FORNECEDOR: { include: { PESSOA: true } } },
+      });
+
+      if (!buscaProduto) {
+        throw new HttpException('Produto não encontrado', HttpStatus.NOT_FOUND);
+      }
+
+      return buscaProduto;
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
+  }
+
+  async listar(body: any) {
+    try {
+      let buscaProduto;
+
+      if (body.CATEGORIA) {
+        const categoria = await this.prisma.categorias.findFirst({
+          where: { CATEGORIA: body.CATEGORIA },
+        });
+
+        if (!categoria) {
+          throw new HttpException(
+            'Categoria não encontrada',
+            HttpStatus.NOT_FOUND,
+          );
+        }
+
+        buscaProduto = await this.prisma.produtos.findMany({
+          where: { CODCAT: categoria.CODCAT },
+          include: {
+            CATEGORIAS: true,
+            AVALIACOES: true,
+            FORNECEDOR: { include: { PESSOA: true } },
+          },
+        });
+      } else {
+        buscaProduto = await this.prisma.produtos.findMany({
+          where: {},
+          include: {
+            CATEGORIAS: true,
+            AVALIACOES: true,
+            FORNECEDOR: { include: { PESSOA: true } },
+          },
+        });
+      }
+
+      // Calculate average rating for each product
+      const produtosComMedia = buscaProduto.map(produto => {
+        const avaliacoes = produto.AVALIACOES || [];
+        const mediaNotas = avaliacoes.length > 0
+          ? avaliacoes.reduce((sum, av) => sum + av.NOTA, 0) / avaliacoes.length
+          : 0;
+
+        return {
+          ...produto,
+          MEDIA_AVALIACOES: Math.round(mediaNotas * 10) / 10,
+          TOTAL_AVALIACOES: avaliacoes.length,
+        };
+      });
+
+      return produtosComMedia;
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
+  }
+
+  async cadastrar(body: any) {
+    try {
+      const categorias = ['MASCULINO', 'FEMININO'];
+      for (const element of categorias) {
+        const existingCategory = await this.prisma.categorias.findFirst({
+          where: { CATEGORIA: element },
+        });
+        if (!existingCategory) {
+          await this.prisma.categorias.create({
+            data: { CATEGORIA: element },
+          });
+        }
+      }
+
+      let codcat = body.CODCAT;
+
+      if (!codcat && body.CATEGORIA) {
+        const categoria = await this.prisma.categorias.findFirst({
+          where: { CATEGORIA: body.CATEGORIA },
+        });
+
+        if (!categoria) {
+          throw new HttpException(
+            'Categoria não encontrada, tente "MASCULINO" ou "FEMININO"',
+            HttpStatus.NOT_FOUND,
+          );
+        }
+        codcat = categoria.CODCAT;
+      }
+
+      if (!codcat) {
+        throw new HttpException(
+          'CODCAT ou CATEGORIA é obrigatório',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      const buscaproduto = await this.prisma.produtos.findFirst({
+        where: {
+          PRODUTO: body.PRODUTO,
+          CODCAT: codcat,
+        },
+      });
+
+      if (buscaproduto) {
+        throw new HttpException('Produto já cadastrado', HttpStatus.CONFLICT);
+      }
+
+      const cadastrar = await this.prisma.produtos.create({
+        data: {
+          PRODUTO: body.PRODUTO,
+          DESCRICAO: body.DESCRICAO,
+          IMAGEM: body.IMAGEM,
+          ESTOQUE: body.ESTOQUE,
+          VALOR: body.VALOR,
+          CODCAT: codcat,
+          DESCONTO: body.DESCONTO || 0,
+          TAMANHOS: body.TAMANHOS || null,
+        },
+      });
+      return cadastrar;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async atualizar(body: any) {
+    try {
+      const buscaproduto = await this.prisma.produtos.findFirst({
+        where: { CODPROD: +body.CODPROD },
+      });
+
+      if (!buscaproduto) {
+        throw new HttpException('Produto não encontrado', HttpStatus.NOT_FOUND);
+      }
+
+      let codcat = body.CODCAT !== undefined ? body.CODCAT : null;
+
+      if (body.CATEGORIA && !codcat) {
+        const categoria = await this.prisma.categorias.findFirst({
+          where: { CATEGORIA: body.CATEGORIA },
+        });
+
+        if (!categoria) {
+          throw new HttpException(
+            'Categoria não encontrada, tente "MASCULINO" ou "FEMININO"',
+            HttpStatus.NOT_FOUND,
+          );
+        }
+        codcat = categoria.CODCAT;
+      }
+
+      const updateData: any = {};
+      if (body.PRODUTO !== undefined) updateData.PRODUTO = body.PRODUTO;
+      if (body.DESCRICAO !== undefined) updateData.DESCRICAO = body.DESCRICAO;
+      if (body.IMAGEM !== undefined) updateData.IMAGEM = body.IMAGEM;
+      if (body.ESTOQUE !== undefined) updateData.ESTOQUE = +body.ESTOQUE;
+      if (body.VALOR !== undefined) updateData.VALOR = +body.VALOR;
+      if (codcat !== null) updateData.CODCAT = codcat;
+      if (body.DESCONTO !== undefined) updateData.DESCONTO = body.DESCONTO;
+      if (body.TAMANHOS !== undefined) updateData.TAMANHOS = body.TAMANHOS;
+
+      const atualizar = await this.prisma.produtos.update({
+        where: { CODPROD: +body.CODPROD },
+        data: updateData,
+      });
+      return atualizar;
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
+  }
+
+  async remover(body: any) {
+    try {
+      if (body?.CODPROD === undefined || body?.CODPROD === null || Number.isNaN(Number(body.CODPROD))) {
+        throw new HttpException('CODPROD inválido', HttpStatus.BAD_REQUEST);
+      }
+      const id = Number(body.CODPROD);
+      const buscaProduto = await this.prisma.produtos.findFirst({ where: { CODPROD: id } });
+
+      if (!buscaProduto) {
+        throw new HttpException('Produto não encontrado', HttpStatus.NOT_FOUND);
+      }
+
+      return await this.prisma.produtos.delete({
+        where: { CODPROD: +body.CODPROD },
+      });
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
+  }
+}
