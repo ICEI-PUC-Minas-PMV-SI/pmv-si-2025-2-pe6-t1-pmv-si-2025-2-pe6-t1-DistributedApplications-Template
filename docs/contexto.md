@@ -1,49 +1,51 @@
 # Introdução
 
-Texto descritivo com a visão geral do projeto abordado. Inclui o contexto, o problema, os objetivos, a justificativa e o público-alvo do projeto.
+A FatiaCerta, pizzaria de bairro que atua com delivery recentemente criada, tem passado por dificuldades na organização e recebimento de seus pedidos, por exemplo: erros no destinatário da entrega, sabores errados nos pedidos, número de ligações muito maior do que sua capacidade de funcionários atual pode atender, visto que muitas vezes são clientes que já realizaram seus pedidos e desejam mais alguma informação sobre, além do excesso de comandas que muitas vezes acabam sendo repetidas pelos atendentes no momento da anotação do pedido. A partir disso, incapazes de aumentar seu número de funcionários para solucionar uma parte dos problemas, pois ainda não possuem um capital muito grande, utilizando seu próprio setor de TI escolheram realizar o desenvolvimento de um aplicativo web e mobile para que seus clientes e funcionários possam ter maior controle e informação sobre os pedidos. Onde os clientes receberiam um forma mais fácil de se consultar o cardápio da pizzaria a hora que desejar, realizar os seus pedidos e receberem atualizações do status do seu pedido diretamente sem a necessidade de mais ligações, além de ser uma boa ajuda na divulgação da loja ter um site próprio, demonstrando sua preocupação em se modernizar e cada vez mais aumentar sua clientela.
 
 ## Problema
-Nesse momento você deve apresentar o problema que a sua aplicação deve  resolver. No entanto, não é a hora de comentar sobre a aplicação.
-
-Descreva também o contexto em que essa aplicação será usada, se  houver: empresa, tecnologias, etc. Novamente, descreva apenas o que de  fato existir, pois ainda não é a hora de apresentar requisitos  detalhados ou projetos.
-
-Nesse momento, o grupo pode optar por fazer uso  de ferramentas como Design Thinking, que permite um olhar de ponta a ponta para o problema.
-
-> **Links Úteis**:
-> - [Objetivos, Problema de pesquisa e Justificativa](https://medium.com/@versioparole/objetivos-problema-de-pesquisa-e-justificativa-c98c8233b9c3)
-> - [Matriz Certezas, Suposições e Dúvidas](https://medium.com/educa%C3%A7%C3%A3o-fora-da-caixa/matriz-certezas-suposi%C3%A7%C3%B5es-e-d%C3%BAvidas-fa2263633655)
-> - [Brainstorming](https://www.euax.com.br/2018/09/brainstorming/)
+A pizzaria FatiaCerta, recentemente passa por dificuldades e ineficiência em seu sistema de realização de pedidos, como: 
+1. Dificuldades no atendimento em horários de pico, visto que estão sem capacidade de contratar mais funcionários para o setor de atendimento;
+2. Ligações de clientes repetidas, onde os clientes acabam ligando várias vezes para saberem alguma informação do pedido que realizaram e a pizzaria acaba perdendo um possível novo cliente nesse tempo.
+3. Os clientes muitas vezes não recebem informações completas dos produtos que a pizzaria oferece dos atendentes durante as ligações, resultando na perda de um cliente por não saber que a opção que desejava estava disponível.
+4. Anotações de comandas feitas em papéis, onde muitas vezes os atendentes se confundem nos pedidos e repetem as comandas, esquecem alguma escolha do cliente, ou até mesmo às perdem depois de anotá-las.
+5. Erros na anotação do destinatário do pedido também são comuns, causando incoveniências aos entregadores após chegarem em residências que não haviam solicitado pedidos.
+  
+Com essa necessidade de se modernizar e atender melhor seus clientes, decidiram realizar o desenvolvimento de um aplicativo mobile e um site Web por meio de seu setor de TI onde os clientes irão poder ver os itens disponíveis para pedir, realizar os pedidos e acompanhar o processo pelo status do pedido, podendo também escolher a forma do pagamento. Os funcionários da pizzaria poderão aceitar e recusar os pedidos, consultar pedidos em andamento e atualizarem o status dos respectivos pedidos para o cliente.
 
 ## Objetivos
 
-Aqui você deve descrever os objetivos do trabalho indicando que o objetivo geral é desenvolver um software para solucionar o problema apresentado acima. 
+### Objetivo Geral
+Desenvolver um sistema de delivery para pizzaria que ofereça ao cliente uma experiência simples, rápida e personalizada. Além disso, conforme demonstrado no problema, o sistema também deverá otimizar o processo interno da pizzaria, reduzindo erros de comunicação, melhorando a organização dos pedidos e possibilitando aos funcionários maior agilidade no atendimento e controle.
 
-Apresente também alguns (pelo menos 2) objetivos específicos dependendo de onde você vai querer concentrar a sua prática investigativa, ou como você vai aprofundar no seu trabalho.
- 
-> **Links Úteis**:
-> - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
+### Objetivo Específicos
+1. Implementar uma plataforma digital de pedidos que permita ao cliente visualizar o cardápio, personalizar produtos e acompanhar o status da entrega.
+2. Investigar a experiência dos usuários em relação à usabilidade da plataforma. 
 
 ## Justificativa
+O desenvolvimento de um sistema de delivery de pizzaria se justifica pela crescente demanda dos consumidores por praticidade, rapidez e comodidade no acesso a serviços alimentícios. Atualmente, o hábito de realizar pedidos online vem se consolidando como uma preferência, sobretudo em áreas urbanas, onde o tempo disponível é limitado e a convêniencia se torna fator decisivo
 
-Descreva a importância ou a motivação para trabalhar com esta aplicação que você escolheu. Indique as razões pelas quais você escolheu seus objetivos específicos ou as razões para aprofundar em certos aspectos do software.
+Para a pizzaria, a implantação de um sistema de delivery possibilita ampliar sua base de clientes, aumentar o volume de vendas e otimizar o processo de atendimento, reduzindo falhas ocasionadas por pedidos realizados via telefone, como erros de comunicação ou atrasos. 
 
-O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estatísticos, que podem ser apresentados, com o objetivo de esclarecer detalhes do problema que será abordado pelo grupo.
-
-> **Links Úteis**:
-> - [Como montar a justificativa](https://guiadamonografia.com.br/como-montar-justificativa-do-tcc/)
+Do ponto de vista dos clientes, o sistema oferece uma experiência mais ágil e personalizada, com acesso ao cardápio completo, promoções e opções de customização, fortalecendo a fidelização e a competitividade da pizzaria no mercado
 
 ## Público-Alvo
 
-Descreva quem serão as pessoas que usarão a sua aplicação indicando os diferentes perfis. O objetivo aqui não é definir quem serão os clientes ou quais serão os papéis dos usuários na aplicação. A ideia é, dentro do possível, conhecer um pouco mais sobre o perfil dos usuários: conhecimentos prévios, relação com a tecnologia, relações
-hierárquicas, etc.
+Pessoas, entre 18 e 70 anos, com renda suficiente para comer fora de casa, que desejam ficar no conforto de sua residência, e, ainda assim, aproveitar uma boa pizza, como se estivessem em um restaurante. Esses indivíduos precisam saber utilizar, de maneira básica, um aparelho de tecnologia, o mais comum sendo um smartphone, e ter acesso a uma conexão de internet, para conseguirem acessar o aplicativo. 
 
-Adicione informações sobre o público-alvo por meio de uma descrição textual, diagramas de personas e mapa de stakeholders.
+### Personas
 
-> **Links Úteis**:
-> - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
-> - [Como definir o público alvo](https://exame.com/pme/5-dicas-essenciais-para-definir-o-publico-alvo-do-seu-negocio/)
-> - [Público-alvo: o que é, tipos, como definir seu público e exemplos](https://klickpages.com.br/blog/publico-alvo-o-que-e/)
-> - [Qual a diferença entre público-alvo e persona?](https://rockcontent.com/blog/diferenca-publico-alvo-e-persona/)
+![Persona João](img/etapa_01/personas/Persona_João.png)
+
+![Persona Joaquim](img/etapa_01/personas/Persona_Joaquim.png)
+
+### Mapa de stakeholders
+
+|Stakeholder     | Interesse  |Influência | Estratégia de engajamento
+|-------|-----------|----|--------------------|
+|Cliente| Alto | Alta | Escutar os desejos e sugestões, para melhorar o aplicativo
+|Equipe de desenvolvimento| Alto |  Média | Se comunicar constantemente, para organizar o projeto de maneira eficaz
+|Restaurantes| Alto | Alta | Sempre escutar as sugestões, para eles não irem utilizar outro app
+|Investidores| Médio | Alta | Manter informados com relatórios, para eles poderem acompanhar o crescimento do app
 
 # Especificações do Projeto
 
@@ -55,66 +57,132 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
-|RF-001| Permitir que o usuário cadastre tarefas | ALTA | 
-|RF-002| Emitir um relatório de tarefas no mês   | MÉDIA |
+|RF-001| Gestão de usuário | ALTA | 
+|RF-002| Visualização de cardápio | ALTA |
+|RF-003| Carrinho | ALTA |
+|RF-004| Gerenciamento do cardápio   | ALTA |
+|RF-005| Monitoramento do Pedido  | MÉDIA |
+|RF-006| Pedidos  | ALTA |
+|RF-007| Personalização de pedidos | MÉDIA |
+
 
 ### Requisitos não Funcionais
 
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
-|RNF-001| O sistema deve ser responsivo para rodar em um dispositivos móvel | MÉDIA | 
-|RNF-002| Deve processar requisições do usuário em no máximo 3s |  BAIXA | 
+|RNF-001| O sistema deve ser responsivo para rodar em um dispositivos móvel | ALTA | 
+|RNF-002| Deve processar requisições do usuário em no máximo 3s |  MÉDIA | 
+|RNF-003| Sistema deve fornecer uma boa usabilidade |  MÉDIA | 
+|RNF-004| Sistema deve apresentar uma criptografia no banco de dados para melhor segurança|  ALTA | 
+|RNF-005| terá que ser compativel com os sistemas IOS e Android  |  ALTA | 
+|RNF-006| Deverá ter uma alta disponibilidade de 99,95% |  MÉDIA | 
 
-Com base nas Histórias de Usuário, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
 
-- [Requisitos Funcionais
- (RF)](https://pt.wikipedia.org/wiki/Requisito_funcional):
- correspondem a uma funcionalidade que deve estar presente na
-  plataforma (ex: cadastro de usuário).
-- [Requisitos Não Funcionais
-  (RNF)](https://pt.wikipedia.org/wiki/Requisito_n%C3%A3o_funcional):
-  correspondem a uma característica técnica, seja de usabilidade,
-  desempenho, confiabilidade, segurança ou outro (ex: suporte a
-  dispositivos iOS e Android).
-Lembre-se que cada requisito deve corresponder à uma e somente uma
-característica alvo da sua solução. Além disso, certifique-se de que
-todos os aspectos capturados nas Histórias de Usuário foram cobertos.
 
 ## Restrições
 
 O projeto está restrito pelos itens apresentados na tabela a seguir.
 
-|ID| Restrição                                             |
-|--|-------------------------------------------------------|
-|01| O projeto deverá ser entregue até o final do semestre |
-|02| Não pode ser desenvolvido um módulo de backend        |
+|ID     | Restrição  |Prioridade |
+|-------|-------------------------|----|
+|RNF-001| O projeto deve ser entregue no prazo estipulado | ALTA | 
+|RNF-002| O projeto não deve ter subsídio de nenhuma espécie | ALTA |
 
-Enumere as restrições à sua solução. Lembre-se de que as restrições geralmente limitam a solução candidata.
 
-> **Links Úteis**:
-> - [O que são Requisitos Funcionais e Requisitos Não Funcionais?](https://codificar.com.br/requisitos-funcionais-nao-funcionais/)
-> - [O que são requisitos funcionais e requisitos não funcionais?](https://analisederequisitos.com.br/requisitos-funcionais-e-requisitos-nao-funcionais-o-que-sao/)
 
-# Catálogo de Serviços
+## Catálogo de Serviços
 
-Descreva aqui todos os serviços que serão disponibilizados pelo seu projeto, detalhando suas características e funcionalidades.
+- Cadastro de usuários: Clientes, e os donos do restaurante, poderão realizar o seu cadastro, com email e senha, para conseguirem utilizar o aplicativo.
+
+- Login de usuários: Usuários, já cadastrados, poderão entrar no aplicativo, utilizando o seu email e senha, fornecidos no cadastro.
+
+- Atualização do perfil : Donos do restaurante, e clientes, poderão atualizar os seus respectivos perfis.
+
+- Cadastro de items: Donos do restaurante poderão cadastrar items, existentes no seu menu, para os clientes conseguirem adquiri-los, por meio de pedidos.
+
+- Atualização de items: Os donos do restaurante conseguirão editar items existentes, para poder realizar atualizações necessárias.
+
+- Remoção de items: Os donos do restaurante terão a opção de remover um item, das opções existentes, caso ele pare de ser vendido.
+
+- Realização de pedidos: Clientes vão poder fazer pedidos, de algum item existente, publicado pelo restaurante, para receber ele em sua residência.
+
+- Acompanhar o status do pedido, clientes: Clientes poderão acompanhar o status do seu pedido, que será dividido em: "Não aceito", "Aceito", "Em preparo", "Em rota de entrega" e "Entregue". Possibilitando assim, o cliente de saber se o restaurante vai realizar a entrega, para ele poder tomar alguma providência, dependendo do status atual.
+
+- Acompanhar os pedidos realizados, restaurante: Os donos do restaurante conseguirão ver uma lista dos pedidos realizados, feitos pelos clientes, para fazerem o seu preparo e envio. Além de conseguirem atualizar o status do pedido, para os já citados em "Acompanhar o status do pedido".
 
 # Arquitetura da Solução
+      +--------------------+           +--------------------+
+      |      Web App       |           |     Mobile App     |
+      | (React + Tailwind) |           | (React Native +    |
+      |                    |           |     Tailwind)      |
+      +---------+----------+           +---------+----------+
+                \                               /
+                 \                             /
+                  \                           /
+                   \                         /
+                    v                       v
 
-Definição de como o software é estruturado em termos dos componentes que fazem parte da solução e do ambiente de hospedagem da aplicação.
+            +----------------------------------+
+            |               API                | (Desenvolvido em .NET)
+            +----------------------------------+
+            |          Authentication          | <-- Valida JWT de clientes e cozinheiros
+            +----------------------------------+
+            |         Serviços de Negócio      |
+            |                                  |
+            |   +---------------------------+  |
+            |   | Gestão de Usuários        |  | <-- CRUD de usuários + login
+            |   +---------------------------+  |
+            |                                  |
+            |   +---------------------------+  |
+            |   | Gestão de Pedidos         |  | <-- CRUD de pedidos
+            |   +---------------------------+  |
+            |                                  |
+            |   +---------------------------+  |
+            |   | Gestão de Cardápio        |  | <-- CRUD de cardápio
+            |   +---------------------------+  |
+            |                                  |
+            |   +---------------------------+  |
+            |   | Gestão de Entregas        |  | <-- Roteirização, status, confirmação
+            |   +---------------------------+  |
+            +----------------------------------+
 
-![arq](https://github.com/user-attachments/assets/b9402e05-8445-47c3-9d47-f11696e38a3d)
+                            |
+                            v
+
+                  +--------------------+
+                  |  Banco de dados    | (SQL Server)
+                  +--------------------+
 
 
 ## Tecnologias Utilizadas
 
-Descreva aqui qual(is) tecnologias você vai usar para resolver o seu problema, ou seja, implementar a sua solução. Liste todas as tecnologias envolvidas, linguagens a serem utilizadas, serviços web, frameworks, bibliotecas, IDEs de desenvolvimento, e ferramentas.
+Para desenvolver o sistema de delivery da pizzaria foram escolhidas tecnologias simples, mas eficientes:
 
-Apresente também uma figura explicando como as tecnologias estão relacionadas ou como uma interação do usuário com o sistema vai ser conduzida, por onde ela passa até retornar uma resposta ao usuário.
+### Front end
+Linguagem: JavaScript
+
+Framework: React para Web, e React native para mobile
+
+Estilo: Tailwind CSS (deixa o app bonito e responsivo)
+
+
+### Back end
+
+Linguagem: C#
+
+Framework: ASP .NET CORE
+
+Banco de dados: SQL server
+
+Autenticação: JWT  usando Microsoft.AspNetCore.Authentication.JwtBearer
 
 ## Hospedagem
 
-Explique como a hospedagem e o lançamento da plataforma foi feita.
+O front end será hospedado no Vercel, que é simples de usar e integrado ao GitHub.
+
+Cada vez que o código for atualizado, a plataforma gera automaticamente uma nova versão do site.
+
+A API será hospedada na AWS.
 
 # Planejamento
 
